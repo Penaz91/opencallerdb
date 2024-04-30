@@ -9,7 +9,7 @@ Tables
 ### Review
 
 | Field      | Type      | Description                                                   |
-|------------+-----------+---------------------------------------------------------------|
+|------------|-----------|---------------------------------------------------------------|
 | Number     | Long      | Phone number, with country code (without the + symbol)        |
 | Evaluation | Enum      | Whether this number is safe, neutral or dangerous             |
 | Category   | Enum      | The category this number is part of, according to the review. |
@@ -29,7 +29,7 @@ Also the "Evaluation" and "Category" fields will be limited heavily to save on s
 ### Federated Cache
 
 | Field               | Type      | Description                                                             |
-|---------------------+-----------+-------------------------------------------------------------------------|
+|---------------------|-----------|-------------------------------------------------------------------------|
 | Number              | Long      | Phone number, with country code (without the + symbol)                  |
 | Category            | Enum      | The category this number is part of, according to the federated server. |
 | Positive Review No. | Integer   | The number of positive reviews                                          |
@@ -41,6 +41,6 @@ Also the "Evaluation" and "Category" fields will be limited heavily to save on s
 ### Federated Servers
 
 | Field | Type       | Description                                                                          |
-|-------+------------+--------------------------------------------------------------------------------------|
+|-------|------------|--------------------------------------------------------------------------------------|
 | URL   | Char(1024) | The URL to the Server we want to federate with                                       |
 | TTL   | Integer    | Number of seconds the results of the federated server should stay in our local cache |

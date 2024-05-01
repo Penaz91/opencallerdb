@@ -19,12 +19,52 @@ Returns the following JSON:
 ```.json
 {
     "number": "<the queried number>",
-    "federated": "<whether the search was done via federated servers too>",
     "positive_reviews": "<number of positive reviews>",
     "negative_reviews": "<number of negative reviews>",
     "neutral_reviews": "<number of neutral reviews>"
 }
 ```
+
+### Federate Inter-Server Search
+
+This is an internal endpoint that will be used by the first server that gets queried by the client. Federated requests will be handled by such server.
+
+`GET /api/v1/fiss/`
+
+Parameters:
+
+- `number`: \[Long\] Number to search (including country code, without the "+" symbol);
+
+It may return one of two JSON responses, as follows.
+
+#### Result found
+
+The server has found an internal match for the number. Thus it will return a normal response.
+
+```.json
+{
+    "number": "<the queried number>",
+    "positive_reviews": "<number of positive reviews>",
+    "negative_reviews": "<number of negative reviews>",
+    "neutral_reviews": "<number of neutral reviews>"
+}
+```
+
+#### No result found
+
+The server could not find any internal match for the number. Thus it will return a different response, which contains the IPs/Domain names of other federated servers that can be queried.
+
+```.json
+{
+    "try": [
+        "server1",
+        "server2",
+        "..."
+    ]
+}
+```
+
+It is responsibility of the querying server to maintain a list of the servers that have already been queried (this will be done in the "reference implementation"), this will avoid having looping calls.
 
 ### Get-DB
 

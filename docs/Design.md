@@ -31,14 +31,15 @@ Querying
 
 Each API request on a federated server will do the following:
 
-1. Check the local reviews, if any are present, return the following information:
+1. Check the valid rows in the federated cache, if there is a cache hit, return the information contained therein.
+2. Check the local reviews, if any are present, return the following information:
     - Number of positive reviews;
     - Number of negative reviews;
     - Number of neutral reviews;
     - Most common category chosen by the reviewers;
-2. If there are no reviews in the local DB, check the federated cache, if there is a cache hit, return the information contained therein.
-3. If there are no hits from the local review DB, query the federated servers (which servers to query will be saved in a database table). The federated servers will return the minimal information as in point 1 and save them in the local cache.
-4. If none of the federated server finds the number, return a negative response.
+    And save them in the federated cache.
+3. If there are no hits from the local review DB, query the federated servers via "Federated Inter-Server Search". The federated servers will return the minimal information as in point 2 and save them in the local cache.
+4. If none of the federated server finds the number, return a negative response and save such response in cache.
 
 ### Via Web Interface
 
@@ -51,20 +52,14 @@ Each API request on a federated server will do the following:
     - Number of neutral reviews;
     - Most common category chosen by the reviewers;
     - Link to the federated server for more information;
-3. If there are no hits from the local review DB, query the federated servers (which servers to query will be saved in a database table). The federated servers will return the minimal information as in point 2 and save them in the local cache.
-4. If none of the federated server finds the number, return a negative response.
+3. If there are no hits from the local review DB and the cache, query the federated servers via "Federated Inter-Server Search". The federated servers will return the minimal information as in point 2 and save them in the local cache.
+4. If none of the federated server finds the number, return a negative response and save such response in cache.
 
-Known Issues
-------------
+Settings
+--------
 
-There are issues in the current design that must be addressed before implementing the software.
+There will be some settings that can be customized. For now I'll just throw in here the ones that come to mind.
 
-### Federation Loops
-
-In the current design, each server is responsible for the federated queries that are connected. This is better explained with an example:
-
-> A certain phone number is searched on server "A", but server "A" has no record. Server "A" is federated with server "B", thus server "A" will request more details to Server "B" before returning a response.
-
-This means that if we have a federation loop (Like `A -> B -> C -> A`), the requests will hang indefinitely as they keep calling for each other.
-
-**Possible solution:** Inter-Server Federated requests should be separated in a different API and make use of some sort of "Glue Records" (Like DNS do) to avoid loops.
+| Field        | Type        | Description         |
+| ------------ | ----------- | ------------------- |
+| TTL          | Integer     | Cache Time-To-Live  |

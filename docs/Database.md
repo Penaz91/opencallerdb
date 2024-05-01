@@ -29,6 +29,8 @@ Also the "Evaluation" and "Category" fields will be limited heavily to save on s
 
 ### Federated Cache
 
+A table to use as a result cache. This table may be in memory.
+
 | Field                 | Type        | Flags              | Description                                                             |
 | --------------------- | ----------- | ------------------ | ----------------------------------------------------------------------- |
 | Id                    | Long        | PK, Auto-increment | Numeric primary key                                                     |
@@ -44,8 +46,20 @@ Having the federated server as a Foreign Key makes "Defederating" easier, since 
 
 ### Federated Servers
 
+A list of servers we want to query if we don't have any hit in our cache or internal database
+
 | Field   | Type         | Flags              | Description                                                                            |
 | ------- | ------------ | ------------------ | -------------------------------------------------------------------------------------- |
 | Id      | Long         | PK, Auto-increment | Numeric primary key                                                                    |
 | URL     | Char(1024)   | Unique             | The URL to the Server we want to federate with                                         |
-| TTL     | Integer      |                    | Number of seconds the results of the federated server should stay in our local cache   |
+| Active  | Boolean      | Default:True       | Whether this server should be interrogated when looking for federated results          |
+
+### Defederated Servers
+
+A list of servers we absolutely do not want to query. This may be useful when we find out that a server is pushing for false data.
+
+| Field   | Type         | Flags              | Description                                                                            |
+| ------- | ------------ | ------------------ | -------------------------------------------------------------------------------------- |
+| Id      | Long         | PK, Auto-increment | Numeric primary key                                                                    |
+| URL     | Char(1024)   | Unique             | The URL to the Server we do not want to federate with                                  |
+| Active  | Boolean      | Default:True       | Whether this server should be excluded from queries (useful for temporary tests)       |

@@ -8,13 +8,14 @@ Tables
 
 ### Review
 
-| Field      | Type      | Description                                                   |
-|------------|-----------|---------------------------------------------------------------|
-| Number     | Long      | Phone number, with country code (without the + symbol)        |
-| Evaluation | Enum      | Whether this number is safe, neutral or dangerous             |
-| Category   | Enum      | The category this number is part of, according to the review. |
-| Title      | Char(128) | A short description                                           |
-| Detail     | Text      | A detailed description of the experience with this number     |
+| Field        | Type        | Flags              | Description                                                     |
+| ------------ | ----------- | ------------------ | --------------------------------------------------------------- |
+| Id           | Long        | PK, Auto-increment | Numeric Primary Key                                             |
+| Number       | Long        | Index              | Phone number, with country code (without the + symbol)          |
+| Evaluation   | Enum        |                    | Whether this number is safe, neutral or dangerous               |
+| Category     | Enum        |                    | The category this number is part of, according to the review.   |
+| Title        | Char(128)   |                    | A short description                                             |
+| Detail       | Text        |                    | A detailed description of the experience with this number       |
 
 The phone number will be memorized as an integer, by using some quirks guaranteed by the country code:
 
@@ -28,21 +29,23 @@ Also the "Evaluation" and "Category" fields will be limited heavily to save on s
 
 ### Federated Cache
 
-| Field                 | Type        | Flags    | Description                                                             |
-| --------------------- | ----------- | -------- | ----------------------------------------------------------------------- |
-| Number                | Long        | Unique?  | Phone number, with country code (without the + symbol)                  |
-| Category              | Enum        |          | The category this number is part of, according to the federated server. |
-| Positive Review No.   | Integer     |          | The number of positive reviews                                          |
-| Negative Review No.   | Integer     |          | The number of negative reviews                                          |
-| Neutral Review No.    | Integer     |          | The number of neutral reviews                                           |
-| Federated Server      | Integer     | FK       | The link to the federated server for more information                   |
-| Expiry                | DateTime    |          | Date and time this cache row will expire and should be renewed          |
+| Field                 | Type        | Flags              | Description                                                             |
+| --------------------- | ----------- | ------------------ | ----------------------------------------------------------------------- |
+| Id                    | Long        | PK, Auto-increment | Numeric primary key                                                     |
+| Number                | Long        | Unique?, Index     | Phone number, with country code (without the + symbol)                  |
+| Category              | Enum        |                    | The category this number is part of, according to the federated server. |
+| Positive Review No.   | Integer     |                    | The number of positive reviews                                          |
+| Negative Review No.   | Integer     |                    | The number of negative reviews                                          |
+| Neutral Review No.    | Integer     |                    | The number of neutral reviews                                           |
+| Federated Server      | Integer     | FK                 | The link to the federated server for more information                   |
+| Expiry                | DateTime    |                    | Date and time this cache row will expire and should be renewed          |
 
-Having the federated server as a Foreign Key makes Defederating easier, since we can program a cascade deletion when we remove an URL from the federated servers table.
+Having the federated server as a Foreign Key makes "Defederating" easier, since we can program a cascade deletion when we remove an URL from the federated servers table.
 
 ### Federated Servers
 
-| Field | Type       | Description                                                                          |
-|-------|------------|--------------------------------------------------------------------------------------|
-| URL   | Char(1024) | The URL to the Server we want to federate with                                       |
-| TTL   | Integer    | Number of seconds the results of the federated server should stay in our local cache |
+| Field   | Type         | Flags              | Description                                                                            |
+| ------- | ------------ | ------------------ | -------------------------------------------------------------------------------------- |
+| Id      | Long         | PK, Auto-increment | Numeric primary key                                                                    |
+| URL     | Char(1024)   | Unique             | The URL to the Server we want to federate with                                         |
+| TTL     | Integer      |                    | Number of seconds the results of the federated server should stay in our local cache   |

@@ -39,7 +39,7 @@ A table to use as a result cache. This table may be in memory.
 | Positive Review No.   | Integer     |                    | The number of positive reviews                                          |
 | Negative Review No.   | Integer     |                    | The number of negative reviews                                          |
 | Neutral Review No.    | Integer     |                    | The number of neutral reviews                                           |
-| Federated Server      | Integer     | FK                 | The link to the federated server for more information                   |
+| Federated Server      | Integer     | FK, Nullable       | The link to the federated server, if NULL it's local cache              |
 | Expiry                | DateTime    |                    | Date and time this cache row will expire and should be renewed          |
 
 Having the federated server as a Foreign Key makes "Defederating" easier, since we can program a cascade deletion when we remove an URL from the federated servers table.

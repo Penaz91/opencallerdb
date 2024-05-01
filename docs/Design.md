@@ -53,3 +53,18 @@ Each API request on a federated server will do the following:
     - Link to the federated server for more information;
 3. If there are no hits from the local review DB, query the federated servers (which servers to query will be saved in a database table). The federated servers will return the minimal information as in point 2 and save them in the local cache.
 4. If none of the federated server finds the number, return a negative response.
+
+Known Issues
+------------
+
+There are issues in the current design that must be addressed before implementing the software.
+
+### Federation Loops
+
+In the current design, each server is responsible for the federated queries that are connected. This is better explained with an example:
+
+> A certain phone number is searched on server "A", but server "A" has no record. Server "A" is federated with server "B", thus server "A" will request more details to Server "B" before returning a response.
+
+This means that if we have a federation loop (Like `A -> B -> C -> A`), the requests will hang indefinitely as they keep calling for each other.
+
+**Possible solution:** Inter-Server Federated requests should be separated in a different API and make use of some sort of "Glue Records" (Like DNS do) to avoid loops.

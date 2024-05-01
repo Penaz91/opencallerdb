@@ -63,3 +63,18 @@ There will be some settings that can be customized. For now I'll just throw in h
 | Field        | Type        | Description         |
 | ------------ | ----------- | ------------------- |
 | TTL          | Integer     | Cache Time-To-Live  |
+
+Categories
+----------
+
+The calls may be classified as follows
+
+- Telemarketer;
+- Silent Call;
+- Scam;
+- Unsolicited call;
+- Robocall;
+- Company;
+- Service;
+- Survey;
+- Other/Uncategorized;

@@ -28,15 +28,17 @@ Also the "Evaluation" and "Category" fields will be limited heavily to save on s
 
 ### Federated Cache
 
-| Field               | Type      | Description                                                             |
-|---------------------|-----------|-------------------------------------------------------------------------|
-| Number              | Long      | Phone number, with country code (without the + symbol)                  |
-| Category            | Enum      | The category this number is part of, according to the federated server. |
-| Positive Review No. | Integer   | The number of positive reviews                                          |
-| Negative Review No. | Integer   | The number of negative reviews                                          |
-| Neutral Review No.  | Integer   | The number of neutral reviews                                           |
-| Federated Link      | Char(512) | The link to the federated server for more information                   |
-| Expiry              | DateTime  | Date and time this cache row will expire and should be renewed          |
+| Field                 | Type        | Flags    | Description                                                             |
+| --------------------- | ----------- | -------- | ----------------------------------------------------------------------- |
+| Number                | Long        | Unique?  | Phone number, with country code (without the + symbol)                  |
+| Category              | Enum        |          | The category this number is part of, according to the federated server. |
+| Positive Review No.   | Integer     |          | The number of positive reviews                                          |
+| Negative Review No.   | Integer     |          | The number of negative reviews                                          |
+| Neutral Review No.    | Integer     |          | The number of neutral reviews                                           |
+| Federated Server      | Integer     | FK       | The link to the federated server for more information                   |
+| Expiry                | DateTime    |          | Date and time this cache row will expire and should be renewed          |
+
+Having the federated server as a Foreign Key makes Defederating easier, since we can program a cascade deletion when we remove an URL from the federated servers table.
 
 ### Federated Servers
 

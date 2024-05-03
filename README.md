@@ -1,7 +1,7 @@
 OpenCallerDB
 ============
 
-![](https://img.shields.io/badge/Status-Planning-%23000000?style=for-the-badge)
+![](https://img.shields.io/badge/Status-Development-%23000000?style=for-the-badge)
 
 This project wants to be a Free and Open Source Software for storing and retrieving caller information.
 

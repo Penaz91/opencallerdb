@@ -67,14 +67,23 @@ There will be some settings that can be customized. For now I'll just throw in h
 Categories
 ----------
 
-The calls may be classified as follows
+The calls may be classified as follows (under each category there will be other categories, as examples).
 
 - Telemarketer;
+    - Unsolicited marketing of goods
+    - Unsolicited marketing of services;
 - Silent Call;
 - Scam;
+    - "Broken Phone" SMS scam;
+    - Fake debt collectors;
+    - Fake nonprofits;
 - Unsolicited call;
+    - Nonprofits;
+    - Call Centers;
+    - Financial services (when unsolicited);
+    - Survey;
 - Robocall;
 - Company;
 - Service;
-- Survey;
+    - Financial services (when you're part of their customer base);
 - Other/Uncategorized;

@@ -20,7 +20,7 @@ Tables
 The phone number will be memorized as an integer, by using some quirks guaranteed by the country code:
 
 - There is no country code "zero", this means that we don't need to store the phone number as text
-- Text is hard to index and search through. Integers are easy to index and can be queried in O(log(n)) via binary search on average.
+- Text is hard to index and search through. Integers are easy to index and can be queried in O(log(n)) via binary search, on average.
 
 Also the "Evaluation" and "Category" fields will be limited heavily to save on space:
 
@@ -29,7 +29,7 @@ Also the "Evaluation" and "Category" fields will be limited heavily to save on s
 
 ### Federated Cache
 
-A table to use as a result cache. This table may be in memory.
+A table to use as a result cache. This table may be in memory, depending on the implementation.
 
 | Field                 | Type        | Flags              | Description                                                             |
 | --------------------- | ----------- | ------------------ | ----------------------------------------------------------------------- |
